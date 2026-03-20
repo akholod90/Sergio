@@ -15,8 +15,8 @@
         
         body {
             font-family: 'Special Elite', monospace;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f0f23);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #e0e8f0;
             overflow: hidden;
             height: 100vh;
         }
@@ -33,10 +33,10 @@
             width: 90%;
             height: 90%;
             margin: 5vh 5vw;
-            background: linear-gradient(145deg, #2d2d3a, #1e1e2a);
-            border: 3px solid #8b4513;
-            box-shadow: 0 0 30px rgba(139, 69, 19, 0.5), inset 0 0 20px rgba(0,0,0,0.8);
-            border-radius: 5px;
+            background: linear-gradient(145deg, #1e3a5f, #0f172a);
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), inset 0 0 20px rgba(0,0,0,0.8);
+            border-radius: 8px;
             padding: 40px;
             transform-origin: left center;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s;
@@ -65,15 +65,18 @@
         
         .header h1 {
             font-size: 2.5em;
-            color: #ff6b35;
-            text-shadow: 0 0 20px #ff6b35;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
             animation: glow 2s ease-in-out infinite alternate;
             letter-spacing: 3px;
         }
         
         @keyframes glow {
-            from { text-shadow: 0 0 20px #ff6b35; }
-            to { text-shadow: 0 0 30px #ff6b35, 0 0 40px #ff6b35; }
+            from { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5)); }
+            to { filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.8)); }
         }
         
         .stamp {
@@ -81,7 +84,7 @@
             top: -20px;
             right: -20px;
             font-size: 1.2em;
-            color: #ff4444;
+            color: #3b82f6;
             transform: rotate(15deg);
             opacity: 0.8;
             animation: stampShake 3s infinite;
@@ -97,20 +100,23 @@
             max-height: 200px;
             display: block;
             margin: 20px auto;
-            border: 2px solid #8b4513;
-            box-shadow: 0 0 15px rgba(139, 69, 19, 0.6);
-            transition: transform 0.3s;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
         }
         
         .content img:hover {
-            transform: scale(1.05) rotate(2deg);
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
         }
         
         .typewriter {
-            border-right: 3px solid #ff6b35;
+            border-right: 3px solid #3b82f6;
             white-space: nowrap;
             overflow: hidden;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+            animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            display: inline-block;
         }
         
         @keyframes typing {
@@ -120,21 +126,126 @@
         
         @keyframes blink-caret {
             from, to { border-color: transparent; }
-            50% { border-color: #ff6b35; }
+            50% { border-color: #3b82f6; }
         }
         
         .section {
             margin: 30px 0;
-            padding: 20px;
-            background: rgba(139, 69, 19, 0.1);
-            border-left: 4px solid #ff6b35;
+            padding: 25px;
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 5px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
             position: relative;
+            transition: all 0.3s;
+        }
+        
+        .section:hover {
+            background: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
         }
         
         .section h3 {
-            color: #ff6b35;
+            color: #60a5fa;
             margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 1.4em;
+        }
+        
+        .examples-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .examples-list li {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 5px;
+            opacity: 0;
+            animation: typewriter-list 0.5s forwards;
+        }
+        
+        .examples-list li:nth-child(1) { animation-delay: 0.2s; }
+        .examples-list li:nth-child(2) { animation-delay: 0.4s; }
+        .examples-list li:nth-child(3) { animation-delay: 0.6s; }
+        .examples-list li:nth-child(4) { animation-delay: 0.8s; }
+        .examples-list li:nth-child(5) { animation-delay: 1s; }
+        
+        @keyframes typewriter-list {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .was-became {
+            margin: 30px 0;
+        }
+        
+        .example-pair {
+            position: relative;
+            margin: 25px 0;
+        }
+        
+        .was, .became {
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .was {
+            background: rgba(255, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #fecaca;
+        }
+        
+        .was::before {
+            content: "РАНЕЕ";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ef4444;
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8em;
+            border-radius: 20px;
+        }
+        
+        .became {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            color: #bbf7d0;
+            display: none;
+        }
+        
+        .became.active {
+            display: block;
+            animation: reveal 0.5s ease-out;
+        }
+        
+        .became::before {
+            content: "СЕЙЧАС";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #22c55e;
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8em;
+            border-radius: 20px;
+        }
+        
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .was:hover, .became:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         
         .navigation {
@@ -146,62 +257,33 @@
         }
         
         .nav-btn {
-            background: linear-gradient(145deg, #8b4513, #a0522d);
+            background: linear-gradient(145deg, #3b82f6, #1d4ed8);
             border: none;
             color: #fff;
             padding: 15px 30px;
             margin: 0 10px;
             font-family: 'Special Elite', monospace;
             font-size: 1.1em;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
         
-        .nav-btn:hover {
+        .nav-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.6);
-            background: linear-gradient(145deg, #a0522d, #cd853f);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
         }
         
         .nav-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
-        }
-        
-        .example {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 4px solid #ff4444;
-            position: relative;
-        }
-        
-        .example::before {
-            content: "РАНЕЕ";
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            background: #ff4444;
-            color: white;
-            padding: 2px 8px;
-            font-size: 0.8em;
-            border-radius: 3px;
-        }
-        
-        .example.new::before {
-            content: "СЕЙЧАС";
-            background: #44ff44;
         }
         
         @media (max-width: 768px) {
             .page { width: 95%; height: 95%; margin: 2.5vh 2.5vw; padding: 20px; }
             .header h1 { font-size: 2em; }
-            .nav-btn { padding: 12px 20px; font-size: 1em; }
+            .nav-btn { padding: 12px 20px; }
         }
     </style>
 </head>
@@ -221,13 +303,14 @@
                 </div>
                 <div class="section">
                     <h3>Наша миссия</h3>
-                    <p>Разгадать тайны души Сержа и попасть в его представление о том, что круто.</p>
-                    <p><strong>Основной посыл:</strong> Продаем образ жизни. Вместо УТП — снимаем фильм. Описываем сценарии.</p>
+                    <p>разгадать тайны души Сержа и попасть в его представление о том, что круто.</p>
+                    <p><strong>Основной посыл, который остается еще со времен Забродской:</strong> продаем образ жизни.</p>
+                    <p>Вместо перечисления УТП снимаем фильм. Описываем сценарии.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Страница 2: Что любит Серж -->
+        <!-- Страница 2: Что любит Серж - Рыбки + Юмор -->
         <div class="page" data-page="2">
             <div class="header">
                 <h1>ЧТО ЛЮБИТ СЕРЖ</h1>
@@ -240,55 +323,68 @@
                 <div class="section">
                     <h3>2.2 Легкий юмор</h3>
                     <img src="его юмор.jpg" alt="Его юмор">
-                    <p>Ребёнок уже вернулся из школы, что рядом с кварталом, и играет в снежки. Домашку, видимо, решил отложить до вечера. Не осуждаем.</p>
-                    <p>У витрины пекарни мама с коляской решает вечный вопрос: круассан или улитка с корицей? (снова возьмёт оба).</p>
-                </div>
-                <div class="section">
-                    <h3>2.3 Необычные образы, конкретика</h3>
-                    <p>тайцзи с тренером • освоить «циркуль» на коньках</p>
-                    <p>В такие моменты вспоминаешь, как в детстве считал снег сладкой ватой. И вот вы уже снова тот самый беззаботный ребенок, который не может пройти мимо нетронутого сугроба.</p>
-                    <p>переход между корпусами и путь к общественным пространствам не потребуют ни скафандра, ни верхней одежды...</p>
+                    <ul class="examples-list">
+                        <li>Ребёнок уже вернулся из школы, что рядом с кварталом, и играет в снежки. Домашку, видимо, решил отложить до вечера. Не осуждаем.</li>
+                        <li>У витрины пекарни мама с коляской решает вечный вопрос: круассан или улитка с корицей? (снова возьмёт оба).</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Страница 3: Продолжение "Что любит" + Конкретика -->
+        <!-- Страница 3: Необычные образы + Конкретика -->
         <div class="page" data-page="3">
             <div class="header">
                 <h1>ЧТО ЛЮБИТ СЕРЖ (продолжение)</h1>
             </div>
             <div class="content">
                 <div class="section">
+                    <h3>2.3 Необычные образы, конкретика</h3>
+                    <ul class="examples-list">
+                        <li>тайцзи с тренером освоить «циркуль» на коньках</li>
+                        <li>В такие моменты вспоминаешь, как в детстве считал снег сладкой ватой. И вот вы уже снова тот самый беззаботный ребенок, который не может пройти мимо нетронутого сугроба.</li>
+                        <li>переход между корпусами и путь к общественным пространствам не потребуют ни скафандра, ни верхней одежды.</li>
+                        <li>Витрины кофеен манят зайти и попробовать свежий бленд. Разгорячённые дети спешат домой после тренировки в Академии Овечкина, чтобы закинуть клюшки и поскорее вернуться к друзьям на улицу. А молодая парочка на Центральном бульваре безуспешно пытается вытащить счастливого хаски из сугроба.</li>
+                        <li>Парк «Новодевичьи Пруды» будто иллюстрация к старинной сказке. Роль волшебных героев здесь исполняют мама-утка Миссис Маллард и её восемь отпрысков. Порой бронзовым утятам даже повязывают шарфики, чтобы они не замерзали.</li>
+                        <li>Следом уже мама выводит на прогулку любимого шпица и на обратном пути сворачивает в кофейню за круассанами — их аромат способен разбудить даже заядлого соню.</li>
+                        <li>Взрослых ждёт ледяной немецкий рислинг, который сомелье заботливо отложил именно для этого случая.</li>
+                        <li>Из детской доносится цоканье игрушечной посуды: дочь кормит кукол завтраком. Бродите между полотен, пока взгляд не цепляется за одну работу. В ней есть что-то неуловимое: может быть, игра света, может быть, выражение глаз. Вы замираете, разгадывая её тайны, и не замечаете, как прошла четверть часа. Решение приходит само собой — этой картине место в вашей гостиной.  После обеда везёте дочь в театр «Вернадского, 13». Сегодня там «Кот в сапогах». В зале гаснет свет, и вы вдруг ловите себя на мысли, что эту историю когда-то читала вам мама. Та самая книжка с картинками, которую вы вместе перелистывали перед сном. А сейчас уже ваш ребёнок, затаив дыхание, следит за приключениями знакомого кота.</li>
+                        <li>Ребенок осваивает джунгли на детской площадке (почти как настоящий хоббит), а вы листаете Толкиена под шум листвы. </li>
+                        <li>Французский бульдог, высунув язык, проносит мимо санки с хохочущим ребёнком. А влюблённая пара, кажется, решила добавить в свой кофе весь маршмеллоу, что нашёлся в кафе.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница 4: Конкретика + Раздражает -->
+        <div class="page" data-page="4">
+            <div class="header">
+                <h1>КОНКРЕТИКА + РАЗДРАЖАЕТ</h1>
+            </div>
+            <div class="content">
+                <div class="section">
                     <h3>2.4 Конкретика</h3>
                     <ul>
-                        <li>не “можно быстро добраться до центра”, а “до <em>название локации</em> <em>число</em> минут на автомобиле”</li>
+                        <li>не “можно быстро добраться до центра”, а “до <em>название локации</em> <em>число</em> минут на автомобиле</li>
                         <li>не “благодаря новой дороге нагрузка на развязку снизилась”, а “нагрузка на Мосфильмовскую снизилась на 25%”</li>
                         <li>не “лучшая школа с сильными преподавателями”, а “школа входит в топ-20, и в ней преподают лектору МГТУ им. Баумана”</li>
                     </ul>
                 </div>
                 <div class="section">
-                    <h3>2.5 Художественные образы</h3>
-                    <p>Мороз оставляет румянец на щеках, глаза горят азартом</p>
-                    <p>Короткая прогулка — и вы посреди хрустального царства</p>
-                    <p>Знакомство с ОСТРОВОМ.8 начинается с гипнотизирующей архитектуры. Здесь и величие волн северных фьордов, и тихая гавань с робкой рябью воды.</p>
+                    <h3>2.5 Художественные образы (табу на лирику снято, но все в пределах разумного)</h3>
+                    <ul class="examples-list">
+                        <li>Мороз оставляет румянец на щеках, глаза горят азартом</li>
+                        <li>Короткая прогулка — и вы посреди хрустального царства</li>
+                        <li>Знакомство с ОСТРОВОМ.8 начинается с гипнотизирующей архитектуры. Здесь и величие волн северных фьордов, и тихая гавань с робкой рябью воды.</li>
+                    </ul>
                 </div>
-            </div>
-        </div>
-
-        <!-- Страница 4: Что раздражает -->
-        <div class="page" data-page="4">
-            <div class="header">
-                <h1>ЧТО РАЗДРАЖАЕТ</h1>
-            </div>
-            <div class="content">
                 <div class="section">
-                    <h3>3.1–3.5 Антипаттерны</h3>
+                    <h3>3. Что его раздражает</h3>
                     <ul>
-                        <li>Однотипные фразы</li>
-                        <li>Клише</li>
-                        <li>Вялотекущие предложения</li>
-                        <li>Похожие посты</li>
-                        <li>Отсутствие конкретики</li>
+                        <li>3.1 Однотипные фразы</li>
+                        <li>3.2 Клише</li>
+                        <li>3.3 Вялотекущие предложения</li>
+                        <li>3.4 Похожие посты</li>
+                        <li>3.5 Отсутствие конкретики</li>
                     </ul>
                 </div>
             </div>
@@ -301,52 +397,85 @@
             </div>
             <div class="content">
                 <div class="section">
-                    <h3>4.1–4.3 Проблемы</h3>
+                    <h3>4. От чего нам нужно избавляться</h3>
                     <ul>
-                        <li>Частые правки</li>
-                        <li>Повторы слов, однокоренные рядом</li>
-                        <li>Канцеляризмы</li>
+                        <li>4.1 Частые правки</li>
+                        <li>4.2 Повторы слов, однокоренные рядом</li>
+                        <li>4.3 Канцеляризмы</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Страница 6: Примеры Было/Стало -->
+        <!-- Страница 6: Примеры Было/Стало (интерактивные) -->
         <div class="page" data-page="6">
             <div class="header">
                 <h1>ПРИМЕРЫ: БЫЛО / СТАЛО</h1>
             </div>
             <div class="content">
-                <div class="example">
-                    <strong>Ранее:</strong> Можно выехать на Мосфильмовскую улицу, после чего повернуть на Южную рокаду.
-                </div>
-                <div class="example new">
-                    <strong>Сейчас:</strong> Утром выруливать на Мосфильмовскую и уходить на Южную рокаду.
-                </div>
+                <div class="was-became">
+                    <div class="example-pair">
+                        <div class="was" onclick="toggleExample(this)">
+                            <strong>Ранее написали бы так:</strong> Можно выехать на Мосфильмовскую улицу, после чего повернуть на Южную рокаду.
+                        </div>
+                        <div class="became">
+                            <strong>Сейчас:</strong> Утром выруливать на Мосфильмовскую и уходить на Южную рокаду
+                        </div>
+                    </div>
 
-                <div class="example">
-                    <strong>Ранее (пост про прогулку):</strong> Магия парка «Событие»... Здесь царит умиротворенная атмосфера...
-                </div>
-                <div class="example new">
-                    <strong>Сейчас:</strong> Так просто. Заглянуть за какао в любимую кофейню... В такие моменты вспоминаешь, как в детстве считал снег сладкой ватой...
-                </div>
+                    <div class="example-pair">
+                        <div class="was" onclick="toggleExample(this)">
+                            <strong>Ранее пост про прогулку выглядел так:</strong><br>
+                            Магия парка «Событие»<br>
+                            Праздники продолжаются, но если вы устали от шума и суеты столицы и хотите замедлиться, приглашаем вас в парк «Событие». Здесь царит умиротворенная атмосфера, и можно неспешно прогуливаться по заснеженным аллеям, наслаждаясь красотой природы.<br>
+                            В ролике делимся атмосферой этого волшебного места.
+                        </div>
+                        <div class="became">
+                            <strong>Сейчас:</strong><br>
+                            Так просто<br>
+                            Заглянуть за какао в любимую кофейню. Бариста приветливо улыбнётся и молча положит ровно столько маршмеллоу, сколько вы любите.<br>
+                            Шагнуть в парк, жмурясь от слепящего солнца, и слушать, как под ногами поскрипывает свежий снег. Пройтись до берега реки, чтобы по привычке пересчитать уточек — это давно стало вашим ритуалом.<br>
+                            В такие моменты вспоминаешь, как в детстве считал снег сладкой ватой. И вот вы уже снова тот самый беззаботный ребенок, который не может пройти мимо нетронутого сугроба.<br>
+                            Это так просто, если у вашего дома парк Событие.
+                        </div>
+                    </div>
 
-                <div class="example">
-                    <strong>Ранее:</strong> Оказываясь здесь, забываешь обо всём... Здесь можно расслабиться...
-                </div>
-                <div class="example new">
-                    <strong>Сейчас:</strong> Мы долго подбирали описание к этому видео, но все слова блекнут на его фоне...
-                </div>
+                    <div class="example-pair">
+                        <div class="was" onclick="toggleExample(this)">
+                            <strong>Ранее:</strong><br>
+                            Оказываясь здесь, забываешь обо всём<br>
+                            С закатом солнца «‎Символ» окутывает особая атмосфера. В уютных дворах не слышно шума машин и суеты мегаполиса. Здесь можно расслабиться, насладиться прогулкой и провести время с близкими.<br>
+                            Запечатлели вечерний «‎Символ» в ролике.
+                        </div>
+                        <div class="became">
+                            <strong>Сейчас:</strong><br>
+                            Мы долго подбирали описание к этому видео, но все слова блекнут на его фоне. Если у вас получится лучше, поделитесь в комментариях! 
+                        </div>
+                    </div>
 
-                <div class="example">
-                    <strong>Ранее:</strong> Вечера в парке «Событие»... создавая атмосферу тепла...
-                </div>
-                <div class="example new">
-                    <strong>Сейчас:</strong> Парк Событие ещё окутан холодным спокойствием... Мы поймали эти мгновения в нашем видео.
-                </div>
+                    <div class="example-pair">
+                        <div class="was" onclick="toggleExample(this)">
+                            <strong>Ранее:</strong><br>
+                            Вечера в парке «Событие»<br>
+                            Зимой парк «Событие» превращается в уютное место для вечерних прогулок. Мягкая подсветка украшает аллеи, дорожки и зимние игровые зоны, создавая атмосферу тепла даже в морозные дни.<br>
+                            Приходите в парк гулять.
+                        </div>
+                        <div class="became">
+                            <strong>Сейчас:</strong><br>
+                            Парк Событие ещё окутан холодным спокойствием. Снег мягко укрывает дорожки, не желая уступать место первым проблескам весны. Но совсем скоро аллеи вспыхнут зеленью, а каждый уголок наполнится теплом. <br>
+                            Мы поймали эти мгновения в нашем видео.
+                        </div>
+                    </div>
 
-                <div class="example new">
-                    <strong>Сейчас:</strong> Парки, словно с открытки. Хруст под ногами... Всего 10–15 минут от дома...
+                    <div class="example-pair">
+                        <div class="was" onclick="toggleExample(this)"></div>
+                        <div class="became active">
+                            <strong>Сейчас:</strong><br>
+                            Парки, словно с открытки<br>
+                            Хруст под ногами, морозная дымка в воздухе и пушистый снег на ветках. Фили и «Серебряный Бор» особенно прекрасны в это время года.<br>
+                            Всего 10–15 минут от дома, и вас окутывает зимняя сказка. Парки во всём своём зимнем великолепии в нашем новом видео.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -380,18 +509,13 @@
         }
 
         nextBtn.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                showPage(currentPage + 1);
-            }
+            if (currentPage < totalPages) showPage(currentPage + 1);
         });
 
         prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                showPage(currentPage - 1);
-            }
+            if (currentPage > 1) showPage(currentPage - 1);
         });
 
-        // Клавиатурная навигация
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' && currentPage < totalPages) {
                 showPage(currentPage + 1);
@@ -400,7 +524,18 @@
             }
         });
 
-        // Анимация появления главной картинки
+        function toggleExample(element) {
+            const pair = element.parentElement;
+            const was = pair.querySelector('.was');
+            const became = pair.querySelector('.became');
+            
+            if (became.classList.contains('active')) {
+                became.classList.remove('active');
+            } else {
+                became.classList.add('active');
+            }
+        }
+
         window.addEventListener('load', () => {
             document.getElementById('intro-img').style.animation = 'glow 2s ease-in-out infinite alternate';
         });
