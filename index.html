@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ДОСЬЕ: ОБЪЕКТ МЕДКОВ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
         
         :root {
-            --paper: #e5dcc3;
+            --paper: #e0d8c3;
             --ink: #2b2b2b;
             --stamp: #a62c2c;
-            --accent: #3d5a80;
         }
 
         * {
@@ -21,356 +20,354 @@
         }
         
         body {
-            font-family: 'Special Elite', 'Courier Prime', monospace;
-            background: #1a1a1a; /* Темный стол */
-            background-image: radial-gradient(#2f2f2f 1px, transparent 1px);
-            background-size: 20px 20px;
+            font-family: 'Special Elite', monospace;
+            background: #1a1a1a; 
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(40,40,40,1) 0%, rgba(20,20,20,1) 100%),
+                url('https://www.transparenttextures.com/patterns/dark-wood.png');
             color: var(--ink);
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
+        }
+        
+        .dossier-wrapper {
+            position: relative;
+            width: 900px;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
-        /* Текстура бумаги */
+
         .page {
             position: absolute;
-            width: 850px;
-            max-width: 95vw;
-            height: 95vh;
+            width: 100%;
+            height: 100%;
             background: var(--paper);
-            padding: 60px;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.5), 
-                        inset 0 0 100px rgba(181, 153, 110, 0.3);
-            border: 1px solid #d1c5a5;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            padding: 50px 70px;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #c5bba0;
             overflow-y: auto;
             display: none;
+            flex-direction: column;
             transform: rotate(-0.5deg);
         }
 
-        .page::before {
+        .page.active {
+            display: flex;
+            z-index: 10;
+        }
+
+        /* Декор */
+        .page::after {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            pointer-events: none;
-            opacity: 0.5;
-        }
-        
-        .page.active {
-            display: block;
-            animation: slideIn 0.4s ease-out;
+            top: 0; left: 0; right: 0; height: 40px;
+            background: rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(100%) rotate(5deg); opacity: 0; }
-            to { transform: translateY(0) rotate(-0.5deg); opacity: 1; }
-        }
-        
-        /* Заголовки как на машинке */
-        .header {
-            border-bottom: 2px solid var(--ink);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        
-        .header h1 {
-            font-size: 2em;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        /* Штампы */
         .stamp {
+            position: absolute;
+            top: 50px;
+            right: 50px;
             border: 4px double var(--stamp);
             color: var(--stamp);
             padding: 5px 15px;
             font-weight: bold;
             text-transform: uppercase;
-            transform: rotate(-15deg);
-            opacity: 0.8;
+            transform: rotate(15deg);
+            opacity: 0.7;
+            z-index: 20;
             user-select: none;
-            display: inline-block;
         }
 
-        .stamp-top {
-            position: absolute;
-            top: 40px;
-            right: 60px;
-        }
-        
-        /* Стилизация фото */
-        .photo-container {
-            float: right;
-            margin: 0 0 20px 20px;
-            background: white;
-            padding: 10px 10px 40px 10px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            border: 1px solid #ddd;
-            transform: rotate(2deg);
-            position: relative;
+        h1 {
+            font-size: 1.8em;
+            text-decoration: underline;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
-        .photo-container img {
-            width: 200px;
-            filter: sepia(0.3) contrast(1.1);
-            display: block;
-        }
-
-        .photo-container::after {
-            content: "ОБЪЕКТ: СЕРЖ";
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-size: 0.8em;
-            color: #555;
-        }
-
-        .tape {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            width: 100px;
-            height: 30px;
-            background: rgba(220, 220, 180, 0.5);
-            transform: translateX(-50%);
-        }
-        
-        .section {
-            margin: 20px 0;
-            line-height: 1.4;
-        }
-        
-        .section h3 {
-            background: var(--ink);
+        h3 {
+            background: rgba(0,0,0,0.8);
             color: var(--paper);
             display: inline-block;
             padding: 2px 10px;
-            margin-bottom: 10px;
-            transform: skewX(-5deg);
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
         }
 
-        /* Цензура (Blackout) */
+        p, li {
+            font-size: 1.05em;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
         .redacted {
             background: var(--ink);
             color: var(--ink);
-            cursor: help;
             transition: color 0.3s;
         }
-        .redacted:hover {
-            color: white;
+        .redacted:hover { color: var(--paper); }
+
+        /* Изображения */
+        .photo-frame {
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+            width: fit-content;
+            margin: 10px auto;
+            transform: rotate(1deg);
         }
-        
-        /* Список улик */
-        .examples-list {
+
+        .photo-frame img {
+            max-width: 250px;
+            filter: sepia(0.2) contrast(1.1);
+            display: block;
+        }
+
+        /* Список */
+        ul {
             list-style: none;
-            padding-left: 15px;
+            padding-left: 20px;
         }
-        
-        .examples-list li {
-            margin-bottom: 10px;
-            position: relative;
+        ul li::before {
+            content: "- ";
+            font-weight: bold;
         }
-        
-        .examples-list li::before {
-            content: "—";
-            position: absolute;
-            left: -15px;
-        }
-        
-        /* Было / Стало в стиле папки */
+
+        /* Было / Стало */
         .example-pair {
-            margin: 20px 0;
-            border: 1px dashed var(--ink);
-            padding: 15px;
-            position: relative;
+            margin: 25px 0;
+            border-left: 3px solid #888;
+            padding-left: 20px;
         }
-        
+
         .was {
-            color: #777;
-            text-decoration: line-through;
-            font-style: italic;
+            color: #666;
             margin-bottom: 10px;
+            font-style: italic;
         }
 
         .became {
-            color: #1a472a;
-            font-weight: bold;
-            border-left: 4px solid #1a472a;
-            padding-left: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.03);
+            border: 1px dashed #aaa;
+            cursor: pointer;
+            position: relative;
         }
+        .became::before {
+            content: "КЛИКНИТЕ, ЧТОБЫ УВИДЕТЬ 'СТАЛО'";
+            position: absolute;
+            background: var(--ink);
+            color: var(--paper);
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+        .became.revealed::before { display: none; }
 
-        /* Навигация как папки */
-        .navigation {
+        /* Навигация */
+        .controls {
             position: fixed;
             bottom: 20px;
             display: flex;
-            gap: 10px;
+            gap: 20px;
+            z-index: 100;
         }
-        
+
         .nav-btn {
-            background: #444;
-            color: #eee;
+            background: #333;
+            color: #ccc;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             font-family: 'Special Elite';
             cursor: pointer;
-            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
-        .nav-btn:hover { background: #666; }
-        .nav-btn:disabled { opacity: 0.3; }
+        .nav-btn:hover { background: #444; color: #fff; }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        .page-num {
-            position: absolute;
-            bottom: 20px;
-            right: 40px;
-            font-size: 1.2em;
-            opacity: 0.5;
+        .page-counter {
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 10px;
+            font-size: 0.8em;
         }
-
-        /* Пятно кофе */
-        .coffee-stain {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border: 5px solid rgba(100, 50, 0, 0.1);
-            border-radius: 50%;
-            bottom: 100px;
-            left: -50px;
-            pointer-events: none;
-        }
-
     </style>
 </head>
 <body>
 
-    <div id="dossier">
-        <!-- Слайд 1 -->
-        <div class="page active" data-page="1">
-            <div class="stamp-top stamp">TOP SECRET</div>
-            <div class="header">
-                <h1>ДЕЛО №2024-SM</h1>
-            </div>
+    <div class="dossier-wrapper">
+        <!-- Слайд 1: Вводный -->
+        <div class="page active" id="p1">
+            <div class="stamp">СЕКРЕТНО</div>
+            <h1>ДОСЬЕ: ОБЪЕКТ МЕДКОВ</h1>
             
-            <div class="photo-container">
-                <div class="tape"></div>
+            <div class="photo-frame">
                 <img src="Сергей.jpg" alt="Сергей Медков">
+                <p style="font-size: 0.7em; margin: 5px 0 0 0; color: #666; text-align: center;">ФОТО: 20.03.2026</p>
             </div>
 
-            <div class="section">
-                <h3>ИНФОРМАЦИЯ ОБ ОБЪЕКТЕ</h3>
-                <p><strong>ФИО:</strong> Сергей Медков</p>
-                <p><strong>ЦЕЛЬ:</strong> Чтобы в честь него называли города, улицы и школы.</p>
-            </div>
-
-            <div class="section">
-                <h3>ОПЕРАТИВНАЯ ЗАДАЧА</h3>
-                <p>Разгадать тайны души Сержа и попасть в его представление о том, что "круто".</p>
-                <p><strong>СТРАТЕГИЯ:</strong> <span class="redacted">Продаем образ жизни</span>.</p>
-                <p>Вместо перечисления УТП снимаем фильм. Описываем сценарии.</p>
-            </div>
-            <div class="coffee-stain"></div>
-            <div class="page-num">стр. 01</div>
+            <section>
+                <h3>Характеристика</h3>
+                <p><strong>Желание:</strong> чтобы в честь него называли города, улицы и школы.</p>
+                <p><strong>Миссия:</strong> разгадать тайны души Сержа и попасть в его представление о том, что круто.</p>
+                <p><strong>Основной посыл (Legacy):</strong> продаем <span class="redacted">ОБРАЗ ЖИЗНИ</span>.</p>
+                <p>Вместо перечисления УТП — строим киноленту. Прописываем сценарии.</p>
+            </section>
         </div>
 
-        <!-- Слайд 2 -->
-        <div class="page" data-page="2">
-            <div class="header">
-                <h1>АНАЛИЗ ПРЕДПОЧТЕНИЙ</h1>
-            </div>
+        <!-- Слайд 2: Что любит -->
+        <div class="page" id="p2">
+            <h1>АНАЛИЗ ПРЕДПОЧТЕНИЙ</h1>
             
-            <div class="section">
-                <h3>УЛИКА 2.1: БИОЛОГИЧЕСКИЕ ВИДЫ</h3>
-                <p>Объект проявляет симпатию к морской фауне:</p>
-                <img src="Рыбки.png" style="width: 100%; max-height: 150px; object-fit: cover; margin-top: 10px; border: 1px solid #000;">
-            </div>
+            <section>
+                <h3>2.1 Биологические виды</h3>
+                <div class="photo-frame" style="float: right; margin: 0 0 10px 20px; transform: rotate(-2deg);">
+                    <img src="Рыбки.png" alt="Рыбки" style="max-width: 180px;">
+                </div>
+                <p>Замечена особая привязанность к рыбкам.</p>
 
-            <div class="section">
-                <h3>УЛИКА 2.2: ПОВЕДЕНЧЕСКИЕ ОСОБЕННОСТИ (ЮМОР)</h3>
-                <ul class="examples-list">
-                    <li>"Ребёнок уже вернулся из школы... Домашку, видимо, решил отложить до вечера. Не осуждаем."</li>
-                    <li>"Мама с коляской решает вечный вопрос: круассан или улитка с корицей? (снова возьмёт оба)."</li>
+                <h3>2.2 Поведенческий юмор</h3>
+                <div class="photo-frame" style="transform: rotate(2deg); margin-bottom: 15px;">
+                    <img src="его юмор.jpg" alt="Юмор">
+                </div>
+                <ul>
+                    <li>Ребёнок уже вернулся из школы, что рядом с кварталом, и играет в снежки. Домашку, видимо, решил отложить до вечера. Не осуждаем.</li>
+                    <li>У витрины пекарни мама с коляской решает вечный вопрос: круассан или улитка с корицей? (снова возьмёт оба).</li>
                 </ul>
-            </div>
-            <div class="page-num">стр. 02</div>
+            </section>
         </div>
 
-        <!-- Слайд 3 -->
-        <div class="page" data-page="3">
-            <div class="header">
-                <h1>КОНКРЕТИКА И ОБРАЗЫ</h1>
-            </div>
-            
-            <div class="section">
-                <h3>ОПЕРАТИВНЫЕ ЗАМЕТКИ</h3>
-                <ul class="examples-list" style="font-size: 0.85em;">
-                    <li>Тайцзи с тренером, освоить «циркуль» на коньках.</li>
-                    <li>Снег как сладкая вата — эффект возвращения в детство.</li>
-                    <li>Переход без "скафандра": путь между корпусами.</li>
-                    <li>Хаски в сугробе на Центральном бульваре.</li>
-                    <li>Миссис Маллард и 8 утят в шарфиках на Новодевичьих Прудах.</li>
-                    <li>Ледяной немецкий рислинг от сомелье.</li>
-                    <li>Цоканье игрушечной посуды и театр «Вернадского, 13».</li>
-                    <li>"Хоббит" на детской площадке и Толкиен под шум листвы.</li>
+        <!-- Слайд 3: Образы -->
+        <div class="page" id="p3">
+            <h1>ОБРАЗЫ И КОНКРЕТИКА</h1>
+            <section>
+                <h3>2.3 Сборник оперативных данных</h3>
+                <ul style="font-size: 0.9em;">
+                    <li>тайцзи с тренером освоить «циркуль» на коньках;</li>
+                    <li>Снег как сладкая вата (регрессия в детство);</li>
+                    <li>Переход без скафандра — путь к общественным пространствам;</li>
+                    <li>Академия Овечкина, закинутые клюшки;</li>
+                    <li>Счастливый хаски в сугробе на Центральном бульваре;</li>
+                    <li>Миссис Маллард и 8 утят в шарфиках (Новодевичьи Пруды);</li>
+                    <li>Аромат круассанов, способный разбудить заядлого соню;</li>
+                    <li>Ледяной немецкий рислинг от сомелье;</li>
+                    <li>Дочь кормит кукол завтраком под цоканье посуды;</li>
+                    <li>Театр «Вернадского, 13» и «Кот в сапогах»;</li>
+                    <li>Ребенок в «джунглях» (как хоббит), а вы с Толкиеном;</li>
+                    <li>Французский бульдог, санки и кофе с кучей маршмеллоу.</li>
                 </ul>
-            </div>
-            <div class="page-num">стр. 03</div>
+            </section>
         </div>
 
-        <!-- Слайды Было/Стало (Сокращенная логика для красоты) -->
-        <div class="page" data-page="4">
-            <div class="header">
-                <h1>СРАВНИТЕЛЬНЫЙ АНАЛИЗ (MODUS OPERANDI)</h1>
-            </div>
-            
-            <div class="example-pair">
-                <div class="was">Можно выехать на Мосфильмовскую улицу, после чего повернуть на Южную рокаду.</div>
-                <div class="became">Утром выруливать на Мосфильмовскую и уходить на Южную рокаду.</div>
-            </div>
+        <!-- Слайд 4: Конкретика + Табу -->
+        <div class="page" id="p4">
+            <h1>ПРАВИЛА КОММУНИКАЦИИ</h1>
+            <section>
+                <h3>2.4 Техническая точность</h3>
+                <ul>
+                    <li>Не «быстро добраться», а <strong>«... минут на автомобиле»</strong>.</li>
+                    <li>Не «новая дорога», а <strong>«нагрузка на Мосфильмовскую снизилась на 25%»</strong>.</li>
+                    <li>Не «лучшая школа», а <strong>«школа в ТОП-20, лекторы из Бауманки»</strong>.</li>
+                </ul>
 
-            <div class="example-pair">
-                <div class="was">Праздники продолжаются... приглашаем вас в парк «Событие». Здесь царит умиротворенная атмосфера.</div>
-                <div class="became">Заглянуть за какао... Бариста молча положит ровно столько маршмеллоу, сколько вы любите. Пройтись до берега, пересчитать уточек — ваш ритуал.</div>
-            </div>
+                <h3>2.5 Художественные образы (Радиус допуска)</h3>
+                <ul>
+                    <li>Мороз оставляет румянец на щеках;</li>
+                    <li>Хрустальное царство после короткой прогулки;</li>
+                    <li>ОСТРОВ.8: «величие волн северных фьордов и тихая гавань».</li>
+                </ul>
 
-            <div class="section">
-                <h3>ФАКТОРЫ РАЗДРАЖЕНИЯ (ТАБУ)</h3>
-                <p><span class="redacted">Клише</span>, однотипные фразы, вялотекущие предложения, отсутствие конкретики.</p>
+                <h3>3. Факторы раздражения</h3>
+                <p><span class="redacted">Клише, однотипные фразы, вялотекущие предложения, похожие посты, отсутствие конкретики.</span></p>
+            </section>
+        </div>
+
+        <!-- Слайд 5: Ликвидация -->
+        <div class="page" id="p5">
+            <h1>ПЛАН ОЧИСТКИ (ЧИСТКА)</h1>
+            <section>
+                <h3>4. От чего избавляемся</h3>
+                <ul style="font-size: 1.2em;">
+                    <li>4.1 Бесконечные частые правки.</li>
+                    <li>4.2 Тавтология (повторы слов, однокоренные рядом).</li>
+                    <li>4.3 Канцеляризмы и «мертвый» язык.</li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- Слайд 6: Было / Стало -->
+        <div class="page" id="p6">
+            <h1>ЛАБОРАТОРНЫЕ СРАВНЕНИЯ</h1>
+            <div style="font-size: 0.8em;">
+                
+                <div class="example-pair">
+                    <div class="was">Можно выехать на Мосфильмовскую улицу...</div>
+                    <div class="became" onclick="reveal(this)">Утром выруливать на Мосфильмовскую и уходить на Южную рокаду.</div>
+                </div>
+
+                <div class="example-pair">
+                    <div class="was">Магия парка «Событие». Праздники продолжаются... наслаждаясь красотой природы...</div>
+                    <div class="became" onclick="reveal(this)">Так просто. Заглянуть за какао... Бариста молча положит маршмеллоу... Пересчитать уточек — ваш ритуал...</div>
+                </div>
+
+                <div class="example-pair">
+                    <div class="was">Вечера в парке «Событие». Мягкая подсветка украшает аллеи... Приходите гулять.</div>
+                    <div class="became" onclick="reveal(this)">Парк Событие ещё окутан холодным спокойствием... но скоро аллеи вспыхнут зеленью. Мы поймали эти мгновения.</div>
+                </div>
+
+                <div class="example-pair">
+                    <div class="was">[Стандартный пост про зимние парки]</div>
+                    <div class="became" onclick="reveal(this)">Парки, словно с открытки. Хруст под ногами, морозная дымка... Фили и «Серебряный Бор» всего в 15 минутах.</div>
+                </div>
+
             </div>
-            <div class="page-num">стр. 04</div>
         </div>
     </div>
 
-    <div class="navigation">
-        <button class="nav-btn" id="prevBtn">ПРЕД. СТРАНИЦА</button>
-        <button class="nav-btn" id="nextBtn">СЛЕД. СТРАНИЦА</button>
+    <div class="controls">
+        <button class="nav-btn" id="prevBtn" disabled>← НАЗАД</button>
+        <div class="page-counter" id="counter">СТРАНИЦА: 1 / 6</div>
+        <button class="nav-btn" id="nextBtn">ВПЕРЕД →</button>
     </div>
 
     <script>
         const pages = document.querySelectorAll('.page');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
         let current = 0;
 
         function update() {
             pages.forEach((p, i) => p.classList.toggle('active', i === current));
-            document.getElementById('prevBtn').disabled = current === 0;
-            document.getElementById('nextBtn').disabled = current === pages.length - 1;
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === pages.length - 1;
+            counter.innerText = `СТРАНИЦА: {current + 1} / ${pages.length}`;
         }
 
-        document.getElementById('nextBtn').onclick = () => { if(current < pages.length-1) { current++; update(); } }
-        document.getElementById('prevBtn').onclick = () => { if(current > 0) { current--; update(); } }
-        
-        // Звуковая имитация печатной машинки при переключении (опционально)
-        function playClick() {
-            const audio = new Audio('https://www.soundjay.com/communication/typewriter-key-1.mp3');
-            audio.play().catch(() => {});
+        nextBtn.onclick = () => { if(current < pages.length - 1) current++; update(); };
+        prevBtn.onclick = () => { if(current > 0) current--; update(); };
+
+        function reveal(el) {
+            el.classList.add('revealed');
         }
-        
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', playClick));
+
+        // Управление клавиатурой
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextBtn.click();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+        });
     </script>
 </body>
 </html>
