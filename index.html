@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ДОСЬЕ: ОБЪЕКТ МЕДКОВ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ДОСЬЕ: ОБЪЕКТ МЕДКОВ | РАСШИРЕННОЕ ДЕЛО</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
         
@@ -55,6 +55,7 @@
             display: none;
             flex-direction: column;
             transform: rotate(-0.5deg);
+            position: relative; /* для абсолютного позиционирования падающих маршмеллоу внутри страницы */
         }
 
         .page.active {
@@ -62,13 +63,14 @@
             z-index: 10;
         }
 
-        /* Декор */
+        /* Декор страницы */
         .page::after {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; height: 40px;
             background: rgba(0,0,0,0.05);
             border-bottom: 1px solid rgba(0,0,0,0.1);
+            pointer-events: none;
         }
 
         .stamp {
@@ -100,6 +102,7 @@
             padding: 2px 10px;
             margin: 20px 0 10px 0;
             text-transform: uppercase;
+            font-size: 1.1rem;
         }
 
         p, li {
@@ -115,7 +118,7 @@
         }
         .redacted:hover { color: var(--paper); }
 
-        /* Изображения */
+        /* Общие рамки для фото */
         .photo-frame {
             background: #fff;
             padding: 10px 10px 40px 10px;
@@ -130,6 +133,61 @@
             max-width: 250px;
             filter: sepia(0.2) contrast(1.1);
             display: block;
+        }
+
+        /* крупное фото для какао */
+        .large-photo {
+            background: #fff;
+            padding: 12px 12px 45px 12px;
+            box-shadow: 5px 5px 18px rgba(0,0,0,0.25);
+            border: 1px solid #c2b78b;
+            width: fit-content;
+            margin: 20px auto;
+            transform: rotate(0.5deg);
+        }
+        .large-photo img {
+            max-width: 100%;
+            max-height: 380px;
+            width: auto;
+            height: auto;
+            display: block;
+            filter: sepia(0.1) contrast(1.05);
+            border-radius: 2px;
+        }
+
+        /* галерея для блинов */
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            margin: 35px 0 20px;
+        }
+        .gallery-item {
+            background: #fffaf0;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 3px 3px 12px rgba(0,0,0,0.2);
+            border: 1px solid #d6caa5;
+            transform: rotate(var(--rot, -1deg));
+            transition: transform 0.2s;
+            width: 200px;
+            text-align: center;
+        }
+        .gallery-item:nth-child(even) { --rot: 1.5deg; }
+        .gallery-item:nth-child(3n) { --rot: -2deg; }
+        .gallery-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            filter: sepia(0.15) contrast(1.05);
+        }
+        .gallery-caption {
+            font-size: 0.75rem;
+            margin-top: 12px;
+            color: #5a4a2e;
+            text-align: center;
+            font-style: italic;
         }
 
         /* Список */
@@ -192,6 +250,7 @@
             font-family: 'Special Elite';
             cursor: pointer;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            font-size: 1rem;
         }
 
         .nav-btn:hover { background: #444; color: #fff; }
@@ -200,15 +259,69 @@
         .page-counter {
             background: rgba(0,0,0,0.7);
             color: #fff;
-            padding: 10px;
-            font-size: 0.8em;
+            padding: 10px 18px;
+            font-size: 0.85em;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        /* ----- Анимация падающих маршмеллоу (только для страницы 7) ----- */
+        .marshmallow-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+        .falling-marsh {
+            position: absolute;
+            background-image: url('марш.webp');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-15vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Контент страницы должен быть выше маршмеллоу */
+        .page .content-above {
+            position: relative;
+            z-index: 5;
+        }
+
+        /* подстройка под мобильные */
+        @media (max-width: 800px) {
+            .page { padding: 35px 30px; }
+            h1 { font-size: 1.4rem; }
+            .large-photo img { max-height: 250px; }
+            .gallery-item { width: 160px; }
+            .gallery-item img { height: 130px; }
         }
     </style>
 </head>
 <body>
 
     <div class="dossier-wrapper">
-        <!-- Слайд 1: Вводный -->
+        <!-- Слайд 1: Вводный (оригинал) -->
         <div class="page active" id="p1">
             <div class="stamp">СЕКРЕТНО</div>
             <h1>ДОСЬЕ: ОБЪЕКТ МЕДКОВ</h1>
@@ -258,7 +371,7 @@
                     <li>тайцзи с тренером освоить «циркуль» на коньках;</li>
                     <li>освоить «циркуль» на коньках;</li>
                     <li>В такие моменты вспоминаешь, как в детстве считал снег сладкой ватой. И вот вы уже снова тот самый беззаботный ребенок, который не может пройти мимо нетронутого сугроба.;</li>
-                    <li>переход между корпусами и путь к общественными пространствам не потребуют ни скафандра, ни верхней одежды.;</li>
+                    <li>переход между корпусами и путь к общественным пространствам не потребуют ни скафандра, ни верхней одежды.;</li>
                     <li>Витрины кофеен манят зайти и попробовать свежий бленд. Разгорячённые дети спешат домой после тренировки в Академии Овечкина, чтобы закинуть клюшки и поскорее вернуться к друзьям на улицу. А молодая парочка на Центральном бульваре безуспешно пытается вытащить счастливого хаски из сугроба.;</li>
                     <li>Парк «Новодевичьи Пруды» будто иллюстрация к старинной сказке. Роль волшебных героев здесь исполняют мама-утка Миссис Маллард и её восемь отпрысков. Порой бронзовым утятам даже повязывают шарфики, чтобы они не замерзали.;</li>
                     <li>Следом уже мама выводит на прогулку любимого шпица и на обратном пути сворачивает в кофейню за круассанами — их аромат способен разбудить даже заядлого соню.;</li>
@@ -341,7 +454,7 @@
 С закатом солнца «‎Символ» окутывает особая атмосфера. В уютных дворах не слышно шума машин и суеты мегаполиса. Здесь можно расслабиться, насладиться прогулкой и провести время с близкими.
 
 Запечатлели вечерний «‎Символ» в ролике.
-/div>
+</div>
                     <div class="became" onclick="reveal(this)">Мы долго подбирали описание к этому видео, но все слова блекнут на его фоне. Если у вас получится лучше, поделитесь в комментариях! </div>
                 </div>
 
@@ -360,40 +473,161 @@
 
             </div>
         </div>
+
+        <!-- ========== НОВЫЕ СТРАНИЦЫ (СОХРАНЯЯ ДИЗАЙН) ========== -->
+        <!-- СТРАНИЦА 7: Гиперфикс на какао + падающие маршмеллоу -->
+        <div class="page" id="p7">
+            <div class="content-above">
+                <h1>☕ ГИПЕРФИКС НА КАКАО</h1>
+                <div class="large-photo" style="margin: 20px auto; text-align: center;">
+                    <img src="какао.jpg" alt="Горячее какао в уютной атмосфере" style="width: auto; max-height: 420px; margin: 0 auto;">
+                    <p style="font-size: 0.7rem; margin-top: 12px; color:#5a4a2e;">идеальная чашка, идеальный момент</p>
+                </div>
+                <p style="text-align: center; font-size: 1.1rem; margin-top: 10px;">Какао, которое обволакивает теплом и возвращает в детство. Смотри, как тают зефирки в каждой кружке — настоящий гиперфикс уюта.</p>
+                <p style="margin-top: 15px; font-style: italic; text-align: center;">— секретный ингредиент: зефирное настроение —</p>
+            </div>
+            <!-- Контейнер для падающих маршмеллоу (будет заполнен js) -->
+            <div id="marshmallowZone" class="marshmallow-bg"></div>
+        </div>
+
+        <!-- СТРАНИЦА 8: Блины с интересом -->
+        <div class="page" id="p8">
+            <h1>🥞 БЛИНЫ С ИНТЕРЕСОМ</h1>
+            <p style="margin-bottom: 15px; font-size: 1.05rem;">Три взгляда на классику. Текстура, настроение, неожиданный поворот — каждый блин хранит свою историю.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="блин 1.webp" alt="Блин с интересом вариант 1">
+                    <div class="gallery-caption">С хрустящей кромкой</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="блин 2.jpg" alt="Блин с интересом вариант 2">
+                    <div class="gallery-caption">Нежный, с секретом</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="блин 3.jpg" alt="Блин с интересом вариант 3">
+                    <div class="gallery-caption">Авторская подача</div>
+                </div>
+            </div>
+            <p style="margin-top: 25px; background: rgba(0,0,0,0.05); padding: 12px; border-left: 4px solid #b87c4f;">«Интерес» рождается в деталях: от выбора начинки до игры света на румяной корочке. Попробуй собрать свой идеальный образ.</p>
+        </div>
+
+        <!-- СТРАНИЦА 9: Фарфор с правильным вайбом -->
+        <div class="page" id="p9">
+            <h1>🍽️ ФАРФОР С ПРАВИЛЬНЫМ ВАЙБОМ</h1>
+            <div class="large-photo" style="max-width: 90%; margin: 20px auto;">
+                <img src="фарфор.png" alt="Изящный фарфор, атмосфера" style="max-width: 100%; height: auto; filter: sepia(0.05);">
+                <p style="font-size: 0.7rem; margin-top: 12px;">тишина, эстетика, осознанность</p>
+            </div>
+            <p>Фарфор звучит. В нём есть особая лёгкость, тактильная память и вайб, который не спутаешь ни с чем. Каждая сервировка — повод для неторопливого разговора и момента, который хочется сохранить.</p>
+            <div style="margin-top: 20px; padding: 8px 15px; background: rgba(120, 90, 60, 0.1); border-radius: 0px; border-left: 2px solid #b59e6e;">
+                <p>✔ Молочный оттенок старины<br>✔ Звонкость, похожую на зимнее утро<br>✔ Глазурь, хранящую тепло рук</p>
+            </div>
+        </div>
     </div>
 
     <div class="controls">
         <button class="nav-btn" id="prevBtn" disabled>← НАЗАД</button>
-        <div class="page-counter" id="counter">СТРАНИЦА: 1 / 6</div>
+        <div class="page-counter" id="counter">СТРАНИЦА: 1 / 9</div>
         <button class="nav-btn" id="nextBtn">ВПЕРЕД →</button>
     </div>
 
     <script>
+        // ---------- НАВИГАЦИЯ (9 страниц) ----------
         const pages = document.querySelectorAll('.page');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const counter = document.getElementById('counter');
-        let current = 0;
+        let current = 0;    // индекс активной страницы (0-based)
 
         function update() {
-            pages.forEach((p, i) => p.classList.toggle('active', i === current));
+            pages.forEach((p, i) => {
+                p.classList.toggle('active', i === current);
+            });
             prevBtn.disabled = current === 0;
             nextBtn.disabled = current === pages.length - 1;
-            counter.innerText = `СТРАНИЦА: {current + 1} / ${pages.length}`;
+            counter.innerText = `СТРАНИЦА: ${current + 1} / ${pages.length}`;
+            
+            // маленький хак: если активная страница — p7 (Гиперфикс какао), убеждаемся что маршмеллоу сгенерированы
+            if (pages[current] && pages[current].id === 'p7') {
+                initMarshmallowsOnce();
+            }
         }
 
-        nextBtn.onclick = () => { if(current < pages.length - 1) current++; update(); };
-        prevBtn.onclick = () => { if(current > 0) current--; update(); };
+        nextBtn.onclick = () => { if(current < pages.length - 1) { current++; update(); } };
+        prevBtn.onclick = () => { if(current > 0) { current--; update(); } };
 
-        function reveal(el) {
-            el.classList.add('revealed');
-        }
-
-        // Управление клавиатурой
+        // клавиши влево/вправо
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') nextBtn.click();
             if (e.key === 'ArrowLeft') prevBtn.click();
         });
+
+        // функция reveal для блоков "Было/Стало" (оригинал)
+        window.reveal = function(el) {
+            el.classList.add('revealed');
+        };
+
+        // ----- ГЕНЕРАЦИЯ ПАДАЮЩИХ МАРШМЕЛЛОУ (только для страницы 7) -----
+        let marshmallowsGenerated = false;
+
+        function initMarshmallowsOnce() {
+            if (marshmallowsGenerated) return;
+            const container = document.getElementById('marshmallowZone');
+            if (!container) return;
+            
+            // очищаем на всякий случай
+            container.innerHTML = '';
+            const MARSHMALLOW_COUNT = 38;  // количество падающих элементов
+            const images = ['марш.webp'];   // используем марш.webp
+            
+            for (let i = 0; i < MARSHMALLOW_COUNT; i++) {
+                const marsh = document.createElement('div');
+                marsh.classList.add('falling-marsh');
+                // случайный размер от 28px до 70px
+                const size = Math.floor(Math.random() * 45 + 30);
+                marsh.style.width = size + 'px';
+                marsh.style.height = size + 'px';
+                // случайная позиция по горизонтали
+                marsh.style.left = Math.random() * 100 + '%';
+                // случайная длительность падения от 5 до 14 секунд
+                const duration = Math.random() * 9 + 5;
+                marsh.style.animationDuration = duration + 's';
+                // случайная задержка старта (чтобы не все одновременно)
+                marsh.style.animationDelay = Math.random() * -15 + 's'; // отрицательная, чтобы уже падали
+                // небольшая вариация opacity
+                marsh.style.opacity = 0.5 + Math.random() * 0.4;
+                // случайный поворот
+                marsh.style.backgroundSize = 'contain';
+                container.appendChild(marsh);
+            }
+            // добавим еще пару "летящих" с разной скоростью
+            marshmallowsGenerated = true;
+        }
+        
+        // когда страница загружена, проверим активную страницу (p1 активна по умолчанию)
+        // но если сразу открыта p7 — инициализируем, но у нас p1 активна. Тем не менее, при переключении на p7 вызовется update->initMarshmallowsOnce.
+        // также на случай если пользователь захочет сразу видеть p7 (при старте нет, но функция будет вызвана при первом перелистывании)
+        // дополнительно продублируем на случай, если кто-то захочет добавить ссылку на p7 изначально — необязательно.
+        
+        // инициализируем корректно первый счетчик и скрытые страницы
+        update();
+        
+        // если вдруг при загрузке DOM контейнер маршмеллоу уже существует (p7 неактивна, но для подстраховки не генерируем до первого показа)
+        // плюс небольшая функция для поддержки ресайза: ничего не ломает.
+        
+        // дополнительная стилизация: гарантируем, что маршмеллоу не мешают кликам
+        const style = document.createElement('style');
+        style.textContent = `.falling-marsh { will-change: transform; } .marshmallow-bg { pointer-events: none; }`;
+        document.head.appendChild(style);
+        
+        // на случай, если пользователь переоткрывает страницу или динамика - всё корректно.
+        // + для надёжности, если p7 активна после обновления (например, если сохранить номер), проверяем
+        if (pages[current] && pages[current].id === 'p7') {
+            initMarshmallowsOnce();
+        }
+        
+        // наблюдатель за активацией страницы не нужен, update уже вызывает init при переходе на p7
+        // немного улучшим: при переходе на p7, если маршмеллоу уже сгенерированы, они видны, всё ок.
     </script>
 </body>
 </html>
